@@ -1,5 +1,14 @@
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
-import { authentication, facebook, google} from "../../Firebase/firebaseConfig";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import {
+  authentication,
+  facebook,
+  google,
+} from "../../Firebase/firebaseConfig";
 
 import { typesLogin } from "../types/types";
 
@@ -27,12 +36,12 @@ export const actionLoginSync = (email, pass) => {
   };
 };
 
-export const actionLoginErrorSync = (error) => {
+export const actionLoginErrorSync = error => {
   return {
-      type: typesLogin.loginError,
-      payload: { error }
-  }
-}
+    type: typesLogin.loginError,
+    payload: { error },
+  };
+};
 
 //--------------Logout---------------------------//
 export const actionLogoutAsyn = () => {
@@ -56,29 +65,28 @@ export const actionLogoutSyn = () => {
 
 //-----------inicio sesion con Google----------------
 export const GoogleLogin = () => {
-  return (dispatch) => {
-    const auth = getAuth()
+  return dispatch => {
+    const auth = getAuth();
     signInWithPopup(auth, google)
-    .then(({user})=> {
-      console.log(user)
-      
-    })
-    .catch((error)=> {
-      console.log(error)
-    })
-  }
-}
+      .then(({ user }) => {
+        console.log(user);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
 
 //-----------inicio sesion con Facebook-----------------
 export const FacebookLogin = () => {
-  return (dispatch) => {
-      const auth = getAuth()
-      signInWithPopup(auth, facebook)
-          .then(({ user }) => {
-              console.log(user, user.displayName, user.email, ' usuario autorizado')
-          })
-          .catch((error) => {
-              console.warn(error)
-          })
-  }
-}
+  return dispatch => {
+    const auth = getAuth();
+    signInWithPopup(auth, facebook)
+      .then(({ user }) => {
+        console.log(user, user.displayName, user.email, " usuario autorizado");
+      })
+      .catch(error => {
+        console.warn(error);
+      });
+  };
+};

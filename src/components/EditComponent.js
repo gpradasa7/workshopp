@@ -52,7 +52,7 @@ const EditComponent = ({ datos }) => {
               <Form.Label>headline</Form.Label>
               <Form.Control
                 type="text"
-                name="nombre"
+                name="headline"
                 value={formValue.headline}
                 onChange={handleInputChange}
               />
@@ -74,7 +74,7 @@ const EditComponent = ({ datos }) => {
               <Form.Label>Contacto</Form.Label>
               <Form.Control
                 type="text"
-                name="Contact"
+                name="contact"
                 value={formValue.contact}
                 onChange={handleInputChange}
               />
@@ -111,7 +111,7 @@ const EditComponent = ({ datos }) => {
               <Form.Control
                 as="textarea"
                 rows={3}
-                name="Сomments"
+                name="comments"
                 value={formValue.comments}
                 onChange={handleInputChange}
               />
