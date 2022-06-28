@@ -9,8 +9,6 @@ import { useDispatch, useSelector} from 'react-redux';
 import { getUserFromDatabase } from '../modules/helpers';
 import Swal from "sweetalert2";
 import { actionLoginAsync, FacebookLogin, GoogleLogin, actionLoginErrorSync  } from '../Redux/actions/actionLogin';
-import { useDispatch} from 'react-redux';
-
 
 authentication.useDeviceLanguage();
 
