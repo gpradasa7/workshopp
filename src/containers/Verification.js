@@ -2,15 +2,16 @@ import React from 'react'
 import { Form, Input } from 'antd'
 import { useDispatch, useSelector } from 'react-redux';
 import { authentication } from '../Firebase/firebaseConfig';
-import { actionVerifyCodeAsync } from '../Redux/actions/actionLogin';
+import { actionUpdateUserInfoSync, actionVerifyCodeAsync } from '../Redux/actions/actionLogin';
+import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 
 authentication.useDeviceLanguage();
 
 const Verification = () => {
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { email } = useSelector(store => store.loginStore);
-
+    const { email, error: verificationError } = useSelector(store => store.loginStore);
 
     const onValidateCode = ({ target }) => {
         if (target.value.length === 6) {
@@ -18,8 +19,22 @@ const Verification = () => {
         }
     }
 
-  return (
-    <div style={{ width: 400, margin: "3em" }}>
+    if (verificationError) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Error intentando enviar el codigo de verificación!."
+        }).then(() => {
+            dispatch(actionUpdateUserInfoSync({ error: undefined }));
+        });
+    } else {
+        if (verificationError === false) {
+            navigate('/home');
+        }
+    }
+
+    return (
+        <div style={{ width: 400, margin: "3em" }}>
             <Form
                 name="basic"
                 labelCol={{
@@ -45,7 +60,7 @@ const Verification = () => {
                 </Form.Item>
             </Form>
         </div>
-  )
+    )
 }
 
 export default Verification

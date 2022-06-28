@@ -19,21 +19,20 @@ export const actionLoginAsync = (email, password) => {
   return dispatch => {
     signInWithEmailAndPassword(authentication, email, password)
       .then(({ user }) => {
-        dispatch(actionLoginSync(email, password));
-        dispatch(actionLoginErrorSync(false));
-        console.log(`Bienvenido usuario encontrado ${user.displayName}`);
+        dispatch(actionLoginSync({ email, password, error: false }));
+        // console.log(`Bienvenido usuario encontrado ${user.displayName}`);
       })
       .catch(error => {
         // console.warn(error, 'Usuario No autorizado')
-        dispatch(actionLoginErrorSync(true));
+        dispatch(actionLoginSync({ email, password, error: false }));
       });
   };
 };
 
-export const actionLoginSync = (email, pass) => {
+export const actionLoginSync = ({ email, password, error }) => {
   return {
     type: typesLogin.login,
-    payload: { email, pass },
+    payload: { email, password, error },
   };
 };
 
@@ -52,8 +51,10 @@ export const actionVerifyCodeAsync = item => {
       // User signed in successfully.
       // const user = result.user;
       const userData = await getUserFromDatabase(item.email);
-      dispatch(actionUpdateUserInfoSync(userData));
+      dispatch(actionUpdateUserInfoSync({ ...userData, error: false }));
       dispatch(actionAuthenticatedSync());
+    }).catch(error => {
+      dispatch(actionUpdateUserInfoSync({ error: true }));
     });
   };
 };

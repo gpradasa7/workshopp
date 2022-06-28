@@ -13,7 +13,6 @@ import { actionLoginAsync, FacebookLogin, GoogleLogin, actionLoginErrorSync  } f
 authentication.useDeviceLanguage();
 
 const Login = () => {
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [loginEmail, setLoginEmail] = useState("");
@@ -67,8 +66,6 @@ const Login = () => {
             sendSMS(loginEmail);
         }
     }
-
-    
 
     return (
         <div style={{ width: 400, margin: "3em" }}>
