@@ -1,27 +1,21 @@
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
-import { google } from "../../Firebase/firebaseConfig";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { authentication} from "../../Firebase/firebaseConfig";
 
 import { typesLogin } from "../types/types";
 
 //--------------Login---------------------------//
 //---validar el ususario y contrasena-----------------------//
-export const actionLoginAsync = (email, pass) => {
+export const actionLoginAsync = (email, password) => {
   return dispatch => {
-    console.log(email, pass);
-    //
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, pass)
+    signInWithEmailAndPassword(authentication, email, password)
       .then(({ user }) => {
-        dispatch(actionLoginSync(email, pass));
-        console.log(user.displayName, "Bienvenido usuario encontrado");
+        dispatch(actionLoginSync(email, password));
+        dispatch(actionLoginErrorSync(false));
+        console.log(`Bienvenido usuario encontrado ${user.displayName}`);
       })
       .catch(error => {
-        console.warn(error, "Usuario No autorizado");
+        // console.warn(error, 'Usuario No autorizado')
+        dispatch(actionLoginErrorSync(true));
       });
   };
 };
@@ -32,6 +26,14 @@ export const actionLoginSync = (email, pass) => {
     payload: { email, pass },
   };
 };
+
+export const actionLoginErrorSync = (error) => {
+  return {
+      type: typesLogin.loginError,
+      payload: { error }
+  }
+}
+
 //--------------Logout---------------------------//
 export const actionLogoutAsyn = () => {
   return dispatch => {
