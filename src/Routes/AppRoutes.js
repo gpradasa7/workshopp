@@ -19,11 +19,8 @@ const AppRoutes = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/add" element={<Agregar />} />
-<<<<<<< HEAD
           <Route path="/home" element={<Home />} />
 
-=======
->>>>>>> 7283fc4b765e0e7a7474b8ceae343c3a5f4d70f0
         </Routes>
       </BrowserRouter>
     </>
