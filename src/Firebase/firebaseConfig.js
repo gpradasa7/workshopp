@@ -4,12 +4,12 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, FacebookAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA8dCDVedor6LbrpLBipDoetv9MN6nj6Wk",
-  authDomain: "worshop3-4d924.firebaseapp.com",
-  projectId: "worshop3-4d924",
-  storageBucket: "worshop3-4d924.appspot.com",
-  messagingSenderId: "1058635599625",
-  appId: "1:1058635599625:web:07af462e07e5cbc7198dd8",
+  apiKey: "AIzaSyDIrXMALPnHPuWOsEMNdjyzPefloI8ROKE",
+  authDomain: "buffalo-app-a0573.firebaseapp.com",
+  projectId: "buffalo-app-a0573",
+  storageBucket: "buffalo-app-a0573.appspot.com",
+  messagingSenderId: "726778795980",
+  appId: "1:726778795980:web:8e315db0ddb4493aceaf69"
 };
 
 // Initialize Firebase
