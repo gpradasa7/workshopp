@@ -5,8 +5,14 @@ export const loginReducers = (state = {}, action) => {
     case typesLogin.login:
       return {
         email: action.payload.email,
-        pass: action.payload.pass,
-      };
+        password: action.payload.password,
+        error: action.payload.error
+      }
+    case typesLogin.loginError:
+      return {
+        ...state,
+        error: action.payload.error
+      }
     case typesLogin.logout:
       return {};
     default:
