@@ -1,5 +1,7 @@
 export const typesLogin = {
   login: "[Login] login",
+  loginError: '[Login] loginError',
+  updateUserInfo: '[login] updateUserInfo',
   logout: "[Login] logout",
 };
 

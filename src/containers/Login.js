@@ -1,24 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Form, Input } from 'antd';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import facebook from "../images/facebook.png"
 import google from "../images/google.png"
 import { authentication } from "../Firebase/firebaseConfig"
-import { RecaptchaVerifier } from 'firebase/auth';
-import { actionLoginAsync, FacebookLogin, GoogleLogin } from '../Redux/actions/actionLogin';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { useDispatch, useSelector} from 'react-redux';
+import { getUserFromDatabase } from '../modules/helpers';
+import Swal from "sweetalert2";
+import { actionLoginAsync, FacebookLogin, GoogleLogin, actionLoginErrorSync  } from '../Redux/actions/actionLogin';
 import { useDispatch} from 'react-redux';
+
 
 authentication.useDeviceLanguage();
 
 const Login = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [loginEmail, setLoginEmail] = useState("");
+    const { error: loginError } = useSelector(store => store.loginStore);
 
     const onFinish = (values) => {
         const { email, password } = values;
         generateCatch();
         dispatch(actionLoginAsync(email, password));
-
+        setLoginEmail(email);
     };
 
     const generateCatch = () => {
@@ -35,6 +42,35 @@ const Login = () => {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
+    const sendSMS = async (email) => {
+        const userData = await getUserFromDatabase(email);
+        signInWithPhoneNumber(authentication, `+57${userData.phone}`, window.recaptchaVerifier)
+            .then((confirmationResult) => {
+                window.confirmationResult = confirmationResult;
+                console.log("SMS send!.");
+                navigate('/verify');
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+
+    if (loginError) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Datos de login incorrectos"
+        }).then(() => {
+            dispatch(actionLoginErrorSync(undefined));
+            setLoginEmail("");
+        });
+    } else {
+        if (loginError === false) {
+            sendSMS(loginEmail);
+        }
+    }
+
+    
 
     return (
         <div style={{ width: 400, margin: "3em" }}>
