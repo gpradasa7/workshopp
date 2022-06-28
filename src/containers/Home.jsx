@@ -4,11 +4,16 @@ import { ButtonCategoria, DivFotoPerfil, H1Nombre, HomeButton } from '../Styles/
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
+import { actionLogoutAsyn } from '../Redux/actions/actionLogin';
+import { useDispatch } from 'react-redux';
 
 const Home = () => {
+
+    const dispatch = useDispatch()
+
     return (
         <div style={{ margin: '15px' }}>
-            {/* <button style={{border:'none', background:'transparent', color:'white', fontFamily:'Raleway', marginLeft:'220px'}} onClick={() => dispatch(loginLogoutAsync())} >Cerrar Sesión</button> */}
+            <button style={{border:'none', background:'transparent', color:'black', fontFamily:'Raleway', marginLeft:'220px'}} onClick={() => dispatch(actionLogoutAsyn())} >Cerrar Sesión</button>
 
             <DivFotoPerfil >
 
