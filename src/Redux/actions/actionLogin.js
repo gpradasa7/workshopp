@@ -53,3 +53,32 @@ export const actionLogoutSyn = () => {
     type: typesLogin.logout,
   };
 };
+
+//-----------inicio sesion con Google----------------
+export const GoogleLogin = () => {
+  return (dispatch) => {
+    const auth = getAuth()
+    signInWithPopup(auth, google)
+    .then(({user})=> {
+      console.log(user)
+      
+    })
+    .catch((error)=> {
+      console.log(error)
+    })
+  }
+}
+
+//-----------inicio sesion con Facebook-----------------
+export const FacebookLogin = () => {
+  return (dispatch) => {
+      const auth = getAuth()
+      signInWithPopup(auth, facebook)
+          .then(({ user }) => {
+              console.log(user, user.displayName, user.email, ' usuario autorizado')
+          })
+          .catch((error) => {
+              console.warn(error)
+          })
+  }
+}
