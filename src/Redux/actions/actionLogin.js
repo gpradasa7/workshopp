@@ -1,5 +1,5 @@
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { authentication} from "../../Firebase/firebaseConfig";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { authentication, facebook, google} from "../../Firebase/firebaseConfig";
 
 import { typesLogin } from "../types/types";
 

@@ -4,6 +4,7 @@ import AddProducts from "../containers/AddProducts";
 import Login from "../containers/Login";
 import Register from "../containers/Register";
 import Agregar from "../containers/Agregar";
+import Home from "../containers/Home";
 
 
 const AppRoutes = () => {
@@ -15,6 +16,7 @@ const AppRoutes = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/add" element={<Agregar />} />
+          <Route path="/home" element={<Home />} />
 
         </Routes>
       </BrowserRouter>
