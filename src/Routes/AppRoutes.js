@@ -4,6 +4,8 @@ import AddProducts from "../containers/AddProducts";
 import Login from "../containers/Login";
 import Register from "../containers/Register";
 import Verification from "../containers/Verification";
+import Agregar from "../containers/Agregar";
+
 
 const AppRoutes = () => {
   return (
@@ -14,6 +16,7 @@ const AppRoutes = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify" element={<Verification />} />
+          <Route path="/add" element={<Agregar />} />
         </Routes>
       </BrowserRouter>
     </>
