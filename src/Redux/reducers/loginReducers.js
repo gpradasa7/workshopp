@@ -13,6 +13,17 @@ export const loginReducers = (state = {}, action) => {
         ...state,
         error: action.payload.error
       }
+
+    case typesLogin.authenticated:
+      return {
+        ...state,
+        authenticated: true
+      }
+    case typesLogin.updateUserInfo:
+      return {
+        ...state,
+        ...action.payload
+      }
     case typesLogin.logout:
       return {};
     default:
