@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import { getUserFromDatabase } from "../../modules/helpers";
 import {
   authentication,
   facebook,
@@ -40,6 +41,35 @@ export const actionLoginErrorSync = error => {
   return {
     type: typesLogin.loginError,
     payload: { error },
+  };
+};
+
+//Verificación por código de autenticación
+export const actionVerifyCodeAsync = item => {
+  return dispatch => {
+    const confirmationResult = window.confirmationResult;
+    confirmationResult.confirm(item.code).then(async result => {
+      // User signed in successfully.
+      // const user = result.user;
+      const userData = await getUserFromDatabase(item.email);
+      dispatch(actionUpdateUserInfoSync(userData));
+      dispatch(actionAuthenticatedSync());
+    });
+  };
+};
+
+export const actionAuthenticatedSync = item => {
+  return {
+    type: typesLogin.authenticated,
+  };
+};
+
+export const actionUpdateUserInfoSync = item => {
+  return {
+    type: typesLogin.updateUserInfo,
+    payload: {
+      ...item,
+    },
   };
 };
 
