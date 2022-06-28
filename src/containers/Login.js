@@ -10,8 +10,6 @@ import { getUserFromDatabase } from '../modules/helpers';
 import Swal from "sweetalert2";
 import { actionLoginAsync, FacebookLogin, GoogleLogin, actionLoginErrorSync  } from '../Redux/actions/actionLogin';
 
-
-
 authentication.useDeviceLanguage();
 
 const Login = () => {
