@@ -14,7 +14,6 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import DasboardRouter from "./DasboardRouter";
 
-
 const AppRoutes = () => {
   const [checking, setChecking] = useState(true)
 

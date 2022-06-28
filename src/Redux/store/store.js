@@ -10,7 +10,7 @@ const composeEnhancers =
 
 const reducers = combineReducers({
   loginStore: loginReducers,
-  registerStore: registerReducers
+  registerStore: registerReducers,
 });
 
 export const store = createStore(

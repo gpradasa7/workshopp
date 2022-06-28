@@ -1,15 +1,22 @@
-
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { getUserFromDatabase } from "../../modules/helpers";
-import { authentication, facebook, google} from "../../Firebase/firebaseConfig";
-
+import {
+  authentication,
+  facebook,
+  google,
+} from "../../Firebase/firebaseConfig";
 
 import { typesLogin } from "../types/types";
 
 //--------------Login---------------------------//
 //---validar el ususario y contrasena-----------------------//
 export const actionLoginAsync = (email, password) => {
-  return (dispatch) => {
+  return dispatch => {
     signInWithEmailAndPassword(authentication, email, password)
       .then(({ user }) => {
         dispatch(actionLoginSync(email, password));
@@ -20,8 +27,8 @@ export const actionLoginAsync = (email, password) => {
         // console.warn(error, 'Usuario No autorizado')
         dispatch(actionLoginErrorSync(true));
       });
-  }
-}
+  };
+};
 
 export const actionLoginSync = (email, pass) => {
   return {
@@ -30,41 +37,41 @@ export const actionLoginSync = (email, pass) => {
   };
 };
 
-export const actionLoginErrorSync = (error) => {
+export const actionLoginErrorSync = error => {
   return {
     type: typesLogin.loginError,
-    payload: { error }
-  }
-}
+    payload: { error },
+  };
+};
 
 //Verificación por código de autenticación
-export const actionVerifyCodeAsync = (item) => {
-  return (dispatch) => {
+export const actionVerifyCodeAsync = item => {
+  return dispatch => {
     const confirmationResult = window.confirmationResult;
-    confirmationResult.confirm(item.code).then(async (result) => {
+    confirmationResult.confirm(item.code).then(async result => {
       // User signed in successfully.
       // const user = result.user;
       const userData = await getUserFromDatabase(item.email);
       dispatch(actionUpdateUserInfoSync(userData));
       dispatch(actionAuthenticatedSync());
     });
-  }
-}
+  };
+};
 
-export const actionAuthenticatedSync = (item) => {
+export const actionAuthenticatedSync = item => {
   return {
-      type: typesLogin.authenticated
-  }
-}
+    type: typesLogin.authenticated,
+  };
+};
 
-export const actionUpdateUserInfoSync = (item) => {
+export const actionUpdateUserInfoSync = item => {
   return {
-      type: typesLogin.updateUserInfo,
-      payload: {
-          ...item
-      }
-  }
-}
+    type: typesLogin.updateUserInfo,
+    payload: {
+      ...item,
+    },
+  };
+};
 
 //--------------Logout---------------------------//
 export const actionLogoutAsyn = () => {
@@ -88,29 +95,28 @@ export const actionLogoutSyn = () => {
 
 //-----------inicio sesion con Google----------------
 export const GoogleLogin = () => {
-  return (dispatch) => {
-    const auth = getAuth()
+  return dispatch => {
+    const auth = getAuth();
     signInWithPopup(auth, google)
-    .then(({user})=> {
-      console.log(user)
-      
-    })
-    .catch((error)=> {
-      console.log(error)
-    })
-  }
-}
+      .then(({ user }) => {
+        console.log(user);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
 
 //-----------inicio sesion con Facebook-----------------
 export const FacebookLogin = () => {
-  return (dispatch) => {
-      const auth = getAuth()
-      signInWithPopup(auth, facebook)
-          .then(({ user }) => {
-              console.log(user, user.displayName, user.email, ' usuario autorizado')
-          })
-          .catch((error) => {
-              console.warn(error)
-          })
-  }
-}
+  return dispatch => {
+    const auth = getAuth();
+    signInWithPopup(auth, facebook)
+      .then(({ user }) => {
+        console.log(user, user.displayName, user.email, " usuario autorizado");
+      })
+      .catch(error => {
+        console.warn(error);
+      });
+  };
+};
