@@ -5,10 +5,12 @@ import facebook from "../images/facebook.png"
 import google from "../images/google.png"
 import { authentication } from "../Firebase/firebaseConfig"
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { actionLoginAsync, actionLoginErrorSync } from '../Redux/actions/actionLogin';
 import { useDispatch, useSelector} from 'react-redux';
 import { getUserFromDatabase } from '../modules/helpers';
 import Swal from "sweetalert2";
+import { actionLoginAsync, FacebookLogin, GoogleLogin, actionLoginErrorSync  } from '../Redux/actions/actionLogin';
+import { useDispatch} from 'react-redux';
+
 
 authentication.useDeviceLanguage();
 
@@ -125,8 +127,8 @@ const Login = () => {
             <div id='recaptch-container'></div>
             <div style={{ margin: "auto", display: "flex", justifyContent: "center", flexDirection: 'column' }}>
                 <div style={{ display: "flex", justifyContent: "center", marginLeft: '140px' }}>
-                    <Button type="primary" htmlType="button" style={{ backgroundColor: 'transparent', border: 'none' }}><img src={google} alt='google' /></Button>
-                    <Button type="primary" htmlType="button" style={{ backgroundColor: 'transparent', border: 'none' }}><img src={facebook} alt='facebook' /></Button>
+                    <Button type="primary" htmlType="button" onClick={()=> dispatch(GoogleLogin())} style={{ backgroundColor: 'transparent', border: 'none' }}><img src={google} alt='google' /></Button>
+                    <Button type="primary" htmlType="button"onClick={()=> dispatch(FacebookLogin())} style={{ backgroundColor: 'transparent', border: 'none' }}><img src={facebook} alt='facebook' /></Button>
                 </div>
                 <br></br>
                 <p style={{ marginLeft: '140px' }}><Link to='/register'>Click here</Link> if you still don't have an account!</p>
