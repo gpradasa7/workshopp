@@ -2,6 +2,7 @@ import { useForm } from "../hooks/useForm";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Button, Form, Modal } from "react-bootstrap";
+import { editProductAsync } from "../Redux/actions/actionEditComponent";
 
 const EditComponent = ({ datos }) => {
   const dispatch = useDispatch();
@@ -13,16 +14,18 @@ const EditComponent = ({ datos }) => {
 
   //-------------------Manipulación del Formulario y lograr Editar----------------------------//
   const [formValue, handleInputChange, reset] = useForm({
-    nombre: datos.headline,
-    email: datos.category,
-    fecha: datos.contact,
-    hora: datos.phone,
-    telefono: datos.pay,
+    headline: "",
+    category: "",
+    contact: "",
+    phone: "",
+    pay: "",
+    comments: "",
   });
 
   const handleSubmit = e => {
     e.preventDefault();
     console.log(formValue);
+    dispatch(editProductAsync(formValue));
     handleClose();
     reset();
   };
@@ -30,8 +33,8 @@ const EditComponent = ({ datos }) => {
   return (
     <div>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Editar Cita Nutricionista</Modal.Title>
+        <Modal.Header>
+          <Modal.Title>Editar Productos Agregados</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
@@ -39,28 +42,28 @@ const EditComponent = ({ datos }) => {
             style={{ margin: "5%", marginLeft: "10%", marginRight: "10%" }}
           >
             <h1 style={{ textAlign: "center", color: "blue" }}>
-              Agendar cita con el Nutricionista
+              PRODUCTOS PUBLICADOS
             </h1>
             <hr />
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>Nombre del Paciente</Form.Label>
+              <Form.Label>headline</Form.Label>
               <Form.Control
                 type="text"
                 name="nombre"
-                value={formValue.nombre}
+                value={formValue.headline}
                 onChange={handleInputChange}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>Category</Form.Label>
               <Form.Control
-                type="email"
-                placeholder="name@example.com"
-                name="email"
-                value={formValue.email}
+                type="text"
+                placeholder="Categoria del producto"
+                name="category"
+                value={formValue.category}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -68,11 +71,11 @@ const EditComponent = ({ datos }) => {
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>Fecha</Form.Label>
+              <Form.Label>Contacto</Form.Label>
               <Form.Control
-                type="date"
-                name="fecha"
-                value={formValue.fecha}
+                type="text"
+                name="Contact"
+                value={formValue.contact}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -80,11 +83,11 @@ const EditComponent = ({ datos }) => {
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>Hora</Form.Label>
+              <Form.Label>Telefono</Form.Label>
               <Form.Control
-                type="time"
-                name="hora"
-                value={formValue.hora}
+                type="number"
+                name="phone"
+                value={formValue.phone}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -92,11 +95,11 @@ const EditComponent = ({ datos }) => {
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>Telefono del Paciente</Form.Label>
+              <Form.Label>Pago con tarjeta</Form.Label>
               <Form.Control
-                type="tel"
-                name="telefono"
-                value={formValue.telefono}
+                type="checkbox"
+                name="pay"
+                value={formValue.pay}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -104,17 +107,17 @@ const EditComponent = ({ datos }) => {
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>Síntomas u Observaciones</Form.Label>
+              <Form.Label>Detalles producto</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
-                name="sintomas"
-                value={formValue.sintomas}
+                name="Сomments"
+                value={formValue.comments}
                 onChange={handleInputChange}
               />
             </Form.Group>
             <Button type="submit" variant="info">
-              Editar
+              Save
             </Button>
           </Form>
         </Modal.Body>

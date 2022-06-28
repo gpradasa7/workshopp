@@ -6,3 +6,6 @@ export const typesLogin = {
 export const typesRegister = {
   register: "[Register-Usuario] register",
 };
+export const typesEditProduct = {
+  edit: "[Editar-Productos] edit",
+};
