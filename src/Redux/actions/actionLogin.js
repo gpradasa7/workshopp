@@ -1,5 +1,5 @@
 
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { getUserFromDatabase } from "../../modules/helpers";
 import { authentication, facebook, google} from "../../Firebase/firebaseConfig";
 
