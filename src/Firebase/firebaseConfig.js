@@ -4,7 +4,6 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, FacebookAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-
   apiKey: "AIzaSyCYSaI_yv3dF6Bps9hYbIuuMYpu4rqPR6k",
   authDomain: "proyectx-494ba.firebaseapp.com",
   databaseURL: "https://proyectx-494ba-default-rtdb.firebaseio.com",
